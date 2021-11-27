@@ -1,0 +1,10 @@
+[{"name":"Big Mac","price":5500,"picture":"img/b1.png"},
+  {"name":"Filet-O-Fish","price":4500,"picture":"img/b2.png"},
+  {"name":"Mozzarella","price":6500,"picture":"img/b3.png"},
+  {"name":"Egg Bulgogi","price":4500,"picture":"img/b4.png"},
+  {"name":"Apple Pie","price":2000,"picture":"img/d1.png"},
+  {"name":"Chocolate Cone","price":1000,"picture":"img/d2.png"},
+  {"name":"McNuggets","price":3000,"picture":"img/d3.png"},
+  {"name":"French Fries","price":2500,"picture":"img/s1.png"},
+  {"name":"Snack Wrap","price":2000,"picture":"img/s2.png"},
+  {"name":"Coca-Cola","price":2000,"picture":"img/s3.png"}]

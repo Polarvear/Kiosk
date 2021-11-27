@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+  <title>kiosk</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@700&display=swap" rel="stylesheet">
+
+  <!--    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">-->
+  <!--    <link rel="stylesheet" href="/resources/demos/style.css">-->
+  <!--    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>-->
+  <!--    <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>-->
+  <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
+</head>
+<body>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+<style>
+  body {
+    font-family: 'Gowun Batang', serif;
+  }
+
+  .header {
+    height: 140px;
+  }
+
+  .header div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .menuList {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    flex-wrap: wrap;
+    text-align: center;
+  }
+
+  .menuList li {
+    margin: 20px 20px 10px 20px;
+    padding: 20px;
+    background-color: #f8f8f8;
+    border-radius: 10px;
+  }
+
+  .mdiv img {
+    margin-bottom: 7px;
+  }
+
+  .orderList {
+    margin-top: 30px;
+  }
+
+  .delBtn {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    font-size: 0.5rem;
+  }
+
+  .orderQty {
+    font-size: large;
+  }
+
+  .modal-body button {
+    margin: 10px;
+  }
+
+</style>
+
+<!--<div class="pop hide">-->
+<!--    <img src="img/c01.jpg">-->
+<!--    <h3>ADD CART</h3>-->
+<!--</div>-->
+
+<div class="container">
+  <div class="row header">
+    <div class="col">
+      <img src="img/logo.png">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-8">
+      <div id="tabs">
+        <ul class="nav nav-tabs">
+          <li class="nav-item">
+            <a class="nav-link active" data-bs-toggle="tab" aria-current="page" href="#menuDiv" onclick="loadData('http://localhost:5555/Kiosk/all.json')">All</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="tab" aria-current="page" href="#menuDiv" onclick="loadData('http://localhost:5555/Kiosk/burger.json')">Burger</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="tab" href="#menuDiv" onclick="loadData('http://localhost:5555/Kiosk/side.json')">Side</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="tab" href="#menuDiv" onclick="loadData('http://localhost:5555/Kiosk/dessert.json')">Dessert</a>
+          </li>
+        </ul>
+        <div class="menuDiv">
+          <div class="menuList">
+            <!-- 메뉴 -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="orderDiv">
+        <h3><i class="fas fa-shopping-cart"></i> Order</h3>
+        <!--                <ul class="orderList">-->
+        <!--                    &lt;!&ndash; 주문목록 &ndash;&gt;-->
+        <!--                </ul>-->
+        <ol class="orderList list-group list-group-numbered">
+
+        </ol>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal" tabindex="-1" id="exampleModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Menu</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <img src="img/b1.png">
+        <button class="minusBtn">-</button><span class="orderQty">1</span><button class="plusBtn">+</button>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary addBtn" data-bs-dismiss="modal">Add Cart</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  loadData('http://localhost:5555/report1/all.json')
+  //json데이터를 fetch를 사용해서 읽을 수 있도록 변환해줌 배열 형태로 출력
+  let menus = []
+
+  function loadData(serverInfo) {
+    console.log("loadData: " + serverInfo)
+    fetch(serverInfo)
+            .then(response => response.json())
+            .then(data => {
+              // console.log(data) //데이터 추출 확인
+              menus = data
+              showList(menus) //showMenu에 변환데이터 넣어서 출력
+            })
+  }
+  //이제 해야할 거 이 변환된 데이터들을 화면에 뿌려줘야함
+  function showList(arr) {
+    const menuList = document.querySelector(".menuList")
+
+    let str = ''
+
+    for (let i = 0; i < arr.length; i++) {
+      const menu = arr[i]
+      // console.log(menu) //메뉴 출력 확인
+      str += `<li data-idx="${i}" data-bs-toggle="modal" data-bs-target="#exampleModal">
+<!--                        오류가 뜨면 오류가 뜬 곳에서 찾아보자 아마 오타일 확률이 높다. -->
+                        <div class="mdiv">
+                        <img src="${menu.picture}">
+                        <div ${menu.name}</div>
+                        <div>${menu.price}</div>
+                        </div>
+                    </li>`
+      // 이후 관리가 쉽도록 인덱스 값 부여
+    }//end for
+
+    menuList.innerHTML = str // menuList에 str뿌려줌
+  }
+
+  //+,- 버튼을 눌렀을 때 숫자가 늘어나거나 줄어드는 기능 추가
+  countNum()
+
+  function countNum() {
+    let qty = 1 // qty선언
+    const plusBtn = document.querySelector(".plusBtn")
+
+    plusBtn.addEventListener('click', (e) => {
+
+      const orderQty = document.querySelector(".orderQty")
+
+      qty++
+      // console.log('qty='+qty) 출력확인
+      orderQty.innerHTML = qty
+    }, false) //이벤트 캡쳐링 지원안함
+
+    const minusBtn = document.querySelector(".minusBtn")
+    minusBtn.addEventListener('click', (e) => {
+
+      const orderQty = document.querySelector(".orderQty")
+
+      qty--
+      if (qty < 0) {
+        qty = 0
+      }
+      // console.log('qty='+qty)// 출력확인
+      orderQty.innerHTML = qty
+    }, false)
+  }
+  //가격을 출력해주는 기능 만들기
+  const menuList = document.querySelector('.menuList')
+  menuList.addEventListener('click', (e) => { //menuList 클릭 시 li태그에 있는 배열 정보를 받아옴
+    const target = e.target
+    // console.log(target)
+    const liEle = target.closest('li') // closest 해서 하위 li태그 찾음
+    const idx = liEle.getAttribute('data-idx')
+    // console.log(idx) // idx 값 확인
+    const pick = menus[idx]
+    console.log(pick.name, pick.price)
+
+
+
+
+  },false)
+
+
+
+
+
+
+
+  //     const addBtn = document.querySelector(".addBtn")
+  //     addBtn.addEventListener('click', (e) => {
+  //         const menu = menus[e.target.getAttribute("data-idx")]
+  //         console.log(menu)
+  //     },false)
+
+</script>
+</body>
+</html>
