@@ -148,7 +148,7 @@
 </div>
 
 <script>
-  loadData('http://localhost:5555/report1/all.json')
+  loadData('http://localhost:5555/kiosk/all.json')
   //json데이터를 fetch를 사용해서 읽을 수 있도록 변환해줌 배열 형태로 출력
   let menus = []
 
@@ -187,9 +187,9 @@
 
   //+,- 버튼을 눌렀을 때 숫자가 늘어나거나 줄어드는 기능 추가
   countNum()
-
+  let qty = 1// qty선언 기본값 1로줌
   function countNum() {
-    let qty = 1 // qty선언
+
     const plusBtn = document.querySelector(".plusBtn")
 
     plusBtn.addEventListener('click', (e) => {
@@ -197,9 +197,9 @@
       const orderQty = document.querySelector(".orderQty")
 
       qty++
-      // console.log('qty='+qty) 출력확인
+      console.log('qty='+qty) //출력확인
       orderQty.innerHTML = qty
-    }, false) //이벤트 캡쳐링 지원안함
+    })
 
     const minusBtn = document.querySelector(".minusBtn")
     minusBtn.addEventListener('click', (e) => {
@@ -210,37 +210,49 @@
       if (qty < 0) {
         qty = 0
       }
-      // console.log('qty='+qty)// 출력확인
+
+      console.log('qty='+qty)// 출력확인
       orderQty.innerHTML = qty
-    }, false)
+    })
   }
-  //가격을 출력해주는 기능 만들기
-  const menuList = document.querySelector('.menuList')
-  menuList.addEventListener('click', (e) => { //menuList 클릭 시 li태그에 있는 배열 정보를 받아옴
+  // 모달창 화면 개선
+      const menuList = document.querySelector('.menuList')
+      menuList.addEventListener('click', (e) => { //menuList 클릭 시 li태그에 있는 배열 정보를 받아옴
+          const target = e.target
+          // console.log(target)
+          const liEle = target.closest('li') // closest 해서 하위 li태그 찾음
+          const idx = liEle.getAttribute('data-idx') //아까 붙여준 data-idx로 인덱스 값 받아옴
+          // console.log(idx) // idx 값 확인
+          let pick = menus[idx]
+          console.log(pick.name, pick.price) //price 출력 확인
+          const pickPicture = pick.picture // 모달창마다 같은 그림 나오는 기능개선
+          document.querySelector(".modal-body img").setAttribute("src", pickPicture)
+      }, false)//이벤트 캡쳐링 지원안함
+
+
+
+
+  function showOrderItems() {
+    const orderListEle = document.querySelector('.orderList')
+
+  }
+
+
+
+
+  const orders = []
+  const addBtn = document.querySelector('.addBtn')
+  addBtn.addEventListener('click', (e)=> {
     const target = e.target
-    // console.log(target)
-    const liEle = target.closest('li') // closest 해서 하위 li태그 찾음
-    const idx = liEle.getAttribute('data-idx')
-    // console.log(idx) // idx 값 확인
-    const pick = menus[idx]
-    console.log(pick.name, pick.price)
+    console.log(target)
 
-
-
-
+    const menu = menus[target.getAttribute('data-idx')]
+    console.log(menu) //여기서 출력은 왜해봄??undefinded인데
+    orders.push({...menu, qty:qty}) //이거는 함수 안에 있는 qty인데 왜 왜 Orders안에 push가 가능하지??
+    // console.log(orders[0].qty)
   },false)
 
 
-
-
-
-
-
-  //     const addBtn = document.querySelector(".addBtn")
-  //     addBtn.addEventListener('click', (e) => {
-  //         const menu = menus[e.target.getAttribute("data-idx")]
-  //         console.log(menu)
-  //     },false)
 
 </script>
 </body>
