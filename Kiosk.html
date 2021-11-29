@@ -227,6 +227,8 @@
           console.log(pick.name, pick.price) //price 출력 확인
           const pickPicture = pick.picture // 모달창마다 같은 그림 나오는 기능개선
           document.querySelector(".modal-body img").setAttribute("src", pickPicture)
+
+        document.querySelector(".addBtn").setAttribute("data-idx", idx)
       }, false)//이벤트 캡쳐링 지원안함
 
 
@@ -247,12 +249,17 @@
     console.log(target)
 
     const menu = menus[target.getAttribute('data-idx')]
-    console.log(menu) //여기서 출력은 왜해봄??undefinded인데
-    orders.push({...menu, qty:qty}) //이거는 함수 안에 있는 qty인데 왜 왜 Orders안에 push가 가능하지??
-    // console.log(orders[0].qty)
+    console.log('menu는' + menu) //line 231에서 set으로 붙여준 걸 가져옴 [object Object]로 확인
+    orders.push({...menu, qty:qty}) //구조 분해 할당으로 넣어줌, qty는 전역변수 바깥에서 해줘서
+    console.log(orders) //성공적으로 출력 확인
+    console.log(`${orders}`)
   },false)
 
-
+  // const test = [{one:1,two:2,three:3}] //객체 리터럴의 경우 [object Object]라고 출력되는데
+  // // [object Object] 가 뭐지?
+  // console.log(test)//혼자 잘 출력됨
+  // console.log('test는' + test)//[object Object]
+  // console.log(`${test}`)//[object Object]
 
 </script>
 </body>
