@@ -218,6 +218,9 @@
   // 모달창 화면 개선
       const menuList = document.querySelector('.menuList')
       menuList.addEventListener('click', (e) => { //menuList 클릭 시 li태그에 있는 배열 정보를 받아옴
+          const orderQty = document.querySelector('.orderQty')
+          orderQty.innerHTML = 1 // 항상 1이 되도록 출력 완료
+
           const target = e.target
           // console.log(target)
           const liEle = target.closest('li') // closest 해서 하위 li태그 찾음
@@ -246,21 +249,21 @@
     console.log(orders) //성공적으로 출력 확인
 
     //화면에 출력해주기
-  const orderListEle = document.querySelector(".orderList") //ol태그
-  let str = ''
+    const orderListEle = document.querySelector(".orderList") //ol태그
+    let str = ''
+    let sum = 0
       for (let i = 0; i < orders.length; i++) {
           const orderItem = orders[i]// orderItem에 담아주기
+          sum += orderItem.price * orderItem.qty
           str += `<li>
                     <div>${'메뉴: '+orderItem.name}${'수량: '+orderItem.qty}${'금액 :'+orderItem.price * orderItem.qty}</div>
+                    <div>${sum}</div>
                   </li>` // 출력 성공
 
 
       }//end for
       orderListEle.innerHTML = str
   },false)
-
-
-
 
 </script>
 </body>
