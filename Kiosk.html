@@ -271,8 +271,8 @@
   orderListEle.addEventListener('click', (e) => {
     const target = e.target
     console.log(target)//타겟 확인 완료
-    const delBtn = target.closest('li')
-    delBtn.remove()// 삭제기능 까지는 추가했는데
+    const delBtn = document.querySelector('.delBtn')
+    // 삭제기능 까지는 추가했는데
   },false)
 
 
