@@ -238,6 +238,7 @@
 
 
   const orders = []
+  const orderListEle = document.querySelector(".orderList") //ol태그
   const addBtn = document.querySelector('.addBtn')
   addBtn.addEventListener('click', (e)=> {
     const target = e.target
@@ -249,7 +250,6 @@
     console.log(orders) //성공적으로 출력 확인
 
     //화면에 출력해주기
-    const orderListEle = document.querySelector(".orderList") //ol태그
     let str = ''
     let sum = 0
       for (let i = 0; i < orders.length; i++) {
@@ -258,12 +258,25 @@
           str += `<li>
                     <div>${'메뉴: '+orderItem.name}${'수량: '+orderItem.qty}${'금액 :'+orderItem.price * orderItem.qty}</div>
                     <div>${sum}</div>
+                    <button class="delBtn">x</button>
                   </li>` // 출력 성공
 
 
       }//end for
       orderListEle.innerHTML = str
   },false)
+
+
+
+  orderListEle.addEventListener('click', (e) => {
+    const target = e.target
+    console.log(target)//타겟 확인 완료
+    const delBtn = target.closest('li')
+    delBtn.remove()// 삭제기능 까지는 추가했는데
+  },false)
+
+
+
 
 </script>
 </body>
