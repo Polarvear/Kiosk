@@ -186,9 +186,9 @@
   }
 
   //+,- 버튼을 눌렀을 때 숫자가 늘어나거나 줄어드는 기능 추가
-  countNum()
+  countQty()
   let qty = 1// qty선언 기본값 1로줌
-  function countNum() {
+  function countQty() {
 
     const plusBtn = document.querySelector(".plusBtn")
 
@@ -249,6 +249,12 @@
     orders.push({...menu, qty:qty}) //구조 분해 할당으로 넣어줌, qty는 전역변수 바깥에서 해줘서
     console.log(orders) //성공적으로 출력 확인
 
+    showOrderItem(orders)
+
+    qty = 1
+  },false)
+
+  function showOrderItem(orders) { //이전의 코드들이 복잡해서 구분하기 쉽게 함수를 나눠버림
     //화면에 출력해주기
     let str = ''
     let sum = 0
@@ -256,26 +262,26 @@
       const orderItem = orders[i]// orderItem에 담아주기
       sum += orderItem.price * orderItem.qty
       str += `<li>
-                    <div>${'메뉴: '+orderItem.name}${'수량: '+orderItem.qty}${'금액 :'+orderItem.price * orderItem.qty}</div>
+                    <div>${'메뉴: ' + orderItem.name}${'수량: ' + orderItem.qty}${'금액 :' + orderItem.price * orderItem.qty}</div>
                     <div>${sum}</div>
                     <button class="delBtn" data-idx="${i}">x</button>
                   </li>` // 출력 성공
-
-
     }//end for
     orderListEle.innerHTML = str
+  }
+
+
+
+
+
+  orderListEle.addEventListener('click', (e) => {
+    const target = e.target
+    console.log(target)//타겟 확인 완료
+    const delBtn = target.closest('li')
+    delBtn.remove()// 삭제기능 까지는 추가했는데 // 250line에서 문제발생
+    const idx = target.getAttribute('data-idx')
+    orders.splice(idx, 1)
   },false)
-
-
-
-  // orderListEle.addEventListener('click', (e) => {
-  //   const target = e.target
-  //   console.log(target)//타겟 확인 완료
-  //   const delBtn = target.closest('li')
-  //   delBtn.remove()// 삭제기능 까지는 추가했는데 // 250line에서 문제발생
-  //   const idx = target.getAttribute('data-idx')
-  //   orders.splice(idx, 1)
-  // },false)
 
 
 
