@@ -268,14 +268,14 @@
 
 
 
-  orderListEle.addEventListener('click', (e) => {
-    const target = e.target
-    console.log(target)//타겟 확인 완료
-    const delBtn = target.closest('li')
-    delBtn.remove()// 삭제기능 까지는 추가했는데 // 250line에서 문제발생
-    const idx = target.getAttribute('data-idx')
-    orders.splice(idx, 1)
-  },false)
+  // orderListEle.addEventListener('click', (e) => {
+  //   const target = e.target
+  //   console.log(target)//타겟 확인 완료
+  //   const delBtn = target.closest('li')
+  //   delBtn.remove()// 삭제기능 까지는 추가했는데 // 250line에서 문제발생
+  //   const idx = target.getAttribute('data-idx')
+  //   orders.splice(idx, 1)
+  // },false)
 
 
 
