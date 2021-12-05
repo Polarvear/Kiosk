@@ -258,7 +258,7 @@
       str += `<li>
                     <div>${'메뉴: '+orderItem.name}${'수량: '+orderItem.qty}${'금액 :'+orderItem.price * orderItem.qty}</div>
                     <div>${sum}</div>
-                    <button class="delBtn">x</button>
+                    <button class="delBtn" data-idx="${i}">x</button>
                   </li>` // 출력 성공
 
 
@@ -272,7 +272,9 @@
     const target = e.target
     console.log(target)//타겟 확인 완료
     const delBtn = target.closest('li')
-    delBtn.remove()// 삭제기능 까지는 추가했는데
+    delBtn.remove()// 삭제기능 까지는 추가했는데 // 250line에서 문제발생
+    const idx = target.getAttribute('data-idx')
+    orders.splice(idx, 1)
   },false)
 
 
