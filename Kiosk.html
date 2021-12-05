@@ -216,23 +216,23 @@
     })
   }
   // 모달창 화면 개선
-      const menuList = document.querySelector('.menuList')
-      menuList.addEventListener('click', (e) => { //menuList 클릭 시 li태그에 있는 배열 정보를 받아옴
-          const orderQty = document.querySelector('.orderQty')
-          orderQty.innerHTML = 1 // 항상 1이 되도록 출력 완료
+  const menuList = document.querySelector('.menuList')
+  menuList.addEventListener('click', (e) => { //menuList 클릭 시 li태그에 있는 배열 정보를 받아옴
+    const orderQty = document.querySelector('.orderQty')
+    orderQty.innerHTML = 1 // 항상 1이 되도록 출력 완료
 
-          const target = e.target
-          // console.log(target)
-          const liEle = target.closest('li') // closest 해서 하위 li태그 찾음
-          const idx = liEle.getAttribute('data-idx') //아까 붙여준 data-idx로 인덱스 값 받아옴
-          // console.log(idx) // idx 값 확인
-          let pick = menus[idx]
-          console.log(pick.name, pick.price) //price 출력 확인
-          const pickPicture = pick.picture // 모달창마다 같은 그림 나오는 기능개선
-          document.querySelector(".modal-body img").setAttribute("src", pickPicture)
+    const target = e.target
+    // console.log(target)
+    const liEle = target.closest('li') // closest 해서 하위 li태그 찾음
+    const idx = liEle.getAttribute('data-idx') //아까 붙여준 data-idx로 인덱스 값 받아옴
+    // console.log(idx) // idx 값 확인
+    let pick = menus[idx]
+    console.log(pick.name, pick.price) //price 출력 확인
+    const pickPicture = pick.picture // 모달창마다 같은 그림 나오는 기능개선
+    document.querySelector(".modal-body img").setAttribute("src", pickPicture)
 
-        document.querySelector(".addBtn").setAttribute("data-idx", idx)
-      }, false)//이벤트 캡쳐링 지원안함
+    document.querySelector(".addBtn").setAttribute("data-idx", idx)
+  }, false)//이벤트 캡쳐링 지원안함
 
 
 
@@ -252,33 +252,27 @@
     //화면에 출력해주기
     let str = ''
     let sum = 0
-      for (let i = 0; i < orders.length; i++) {
-          const orderItem = orders[i]// orderItem에 담아주기
-          sum += orderItem.price * orderItem.qty
-          str += `<li>
-                    <div class="menu">${'메뉴: '+orderItem.name}${'수량: '+orderItem.qty}${'금액 :'+orderItem.price * orderItem.qty}</div>
-                    <div class="sum">${sum}</div>
+    for (let i = 0; i < orders.length; i++) {
+      const orderItem = orders[i]// orderItem에 담아주기
+      sum += orderItem.price * orderItem.qty
+      str += `<li>
+                    <div>${'메뉴: '+orderItem.name}${'수량: '+orderItem.qty}${'금액 :'+orderItem.price * orderItem.qty}</div>
+                    <div>${sum}</div>
                     <button class="delBtn">x</button>
                   </li>` // 출력 성공
 
 
-      }//end for
-      orderListEle.innerHTML = str
+    }//end for
+    orderListEle.innerHTML = str
   },false)
 
 
-//현재 X버튼 누르면 삭제가 완벽하긴 한데 이전에 잘 동작하던 코드들이 물리는 문제발생
-  orderListEle.addEventListener('click', (e) => { //버튼은 두번 클릭해야하는 문제발생...
+
+  orderListEle.addEventListener('click', (e) => {
     const target = e.target
     console.log(target)//타겟 확인 완료
-    const delBtn = target.closest('.delBtn')
-    console.log('delBtn은' , delBtn)
-      delBtn.addEventListener('click', (e) => { //현재 계속 잡아버리는 문제 발생
-        const liEle = target.closest('li')
-        console.log('liEle는', liEle)
-        liEle.remove()
-    },false)
-    // 삭제기능 까지는 추가했는데
+    const delBtn = target.closest('li')
+    delBtn.remove()// 삭제기능 까지는 추가했는데
   },false)
 
 
