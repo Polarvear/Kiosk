@@ -95,16 +95,16 @@
       <div id="tabs">
         <ul class="nav nav-tabs">
           <li class="nav-item">
-            <a class="nav-link active" data-bs-toggle="tab" aria-current="page" href="#menuDiv" onclick="loadData('http://localhost:5555/Kiosk/all.json')">All</a>
+            <a class="nav-link active" data-bs-toggle="tab" aria-current="page" href="#menuDiv" onclick="loadData('http://localhost:5500/Kiosk/all.json')">All</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="tab" aria-current="page" href="#menuDiv" onclick="loadData('http://localhost:5555/Kiosk/burger.json')">Burger</a>
+            <a class="nav-link" data-bs-toggle="tab" aria-current="page" href="#menuDiv" onclick="loadData('http://localhost:5500/Kiosk/burger.json')">Burger</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="tab" href="#menuDiv" onclick="loadData('http://localhost:5555/Kiosk/side.json')">Side</a>
+            <a class="nav-link" data-bs-toggle="tab" href="#menuDiv" onclick="loadData('http://localhost:5500Kiosk/side.json')">Side</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="tab" href="#menuDiv" onclick="loadData('http://localhost:5555/Kiosk/dessert.json')">Dessert</a>
+            <a class="nav-link" data-bs-toggle="tab" href="#menuDiv" onclick="loadData('http://localhost:5500/Kiosk/dessert.json')">Dessert</a>
           </li>
         </ul>
         <div class="menuDiv">
@@ -148,7 +148,7 @@
 </div>
 
 <script>
-  loadData('http://localhost:5555/kiosk/all.json')
+  loadData('http://localhost:5500/kiosk/all.json')
   //json데이터를 fetch를 사용해서 읽을 수 있도록 변환해줌 배열 형태로 출력
   let menus = []
 
@@ -249,7 +249,7 @@
     orders.push({...menu, qty:qty}) //구조 분해 할당으로// 넣어줌, qty는 전역변수 바깥에서 해줘서
     //orders가 계속 뜨는 문제를 보니까 현재 계속해서 orders를 집어넣어주고 있음.
     //언제 뜨느냐가 문제임.
-    console.log(orders) //성공적으로 출력 확인
+    console.log( orders) //성공적으로 출력 확인
 
     showOrderItem(orders)
 
